@@ -78,11 +78,8 @@ void main(void){
   LCD_GotoXY(k+1,0);
   SLEEP_MS(10);
   LCD_SendChar('*');
-
-
   int32_t y = readAccel(0x2B,1);
   SLEEP_MS(10);
-
   media_y=0;
   for(i=0; i<= n-2; i++){
   vector_media_y[i]=vector_media_y[i+1];
@@ -99,82 +96,10 @@ void main(void){
    LCD_GotoXY(j+1,1);
    SLEEP_MS(10);
    LCD_SendChar('*');
-
    }
-  }*/
+  }
 
 
 
 
-/*int main(void) {
-	int32_t val, x, y;
-    baseInit();
-    LCD_Init();
-    initAccel();
-    val = writeAccel(0x20,6,1);
-    LCD_ClearDisplay();
-    LCD_Config(1,0,0);
 
-//Fins aqui fem una inicialitzacio basica del LCD
-
-    x = readAccel(0x29,1);
-    y = readAccel(0x2B,1);
-
-    LCD_GotoXY(3,0);
-    LCD_SendString("*");
-    LCD_GotoXY(7,1);
-    LCD_SendString("*");
-    while(1){
-    	SLEEP_MS(500);
-    	LCD_ClearDisplay();
-    	x = readAccel(0x29,1);
-    	y = readAccel(0x2B,1);
-    	if(x>8){
-    		x=8;
-    	}
-    	else if(x<-7){
-    		x=-7;
-    	}
-    	if(y>8){
-    		y=8;
-    	}else if(y<-7){
-    		y=-7;
-    	}
-    	x = x+7;
-    	y = y+7;
-    	LCD_GotoXY(x,0);
-        LCD_SendString("*");
-        DELAY_US(200);
-        LCD_GotoXY(y,1);
-        LCD_SendString("*");
-    }
-    return 0;
-}*/
-
-/*^
- const char smile[8] = {0b00000000,0b00001010,0b00001010,0b00001010,0b00000000,0b00010001,0b00001110,0b00000000,};
- */
-/*
- baseInit(); // Basic initialization
-	LCD_Init(); // Program the GPIO I/O lines
-
-	LCD_Backlight(1);
-	SLEEP_MS(1000);
-	LCD_Backlight(0);
-
-	SLEEP_MS(1000);
-	LCD_ClearDisplay();
-	SLEEP_MS(1000);
-
-	LCD_SendString("David Fornos");
-	SLEEP_MS(1000);
-	LCD_GotoXY(0,1);
-	LCD_SendString("Alex Melendez");
-	LCD_Config(1,0,1);
-	SLEEP_MS(1000);
-	LCD_ClearDisplay();
-	LCD_Config(1,0,0);
-
-	while (1);
-	return 0;
- 
