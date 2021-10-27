@@ -43,7 +43,7 @@ void main(void){
  }
 
   //En el següent bucle, el que fem és distribuir uniformement els valors d'accelarció
- //
+ //a l'esquerra es troba el valor de minima acceleració i a la dreta el de màxima
   for(i=0; i<8; i++){
 	  dist_x[i]= ((x_inicial - minX) / 8) * i + minX;
 	  dist_x[pos - i-1]= maxX - (maxX-x_inicial) / 8 * i;
@@ -52,7 +52,7 @@ void main(void){
   }
   dist_x[8]=x_inicial;
   dist_y[8]=y_inicial;
-
+//Fem una espera perquè doni temps al ull humà a veure-ho
   SLEEP_MS(500);
   LCD_ClearDisplay();
 
@@ -60,24 +60,28 @@ void main(void){
 
   SLEEP_MS(100);
   LCD_ClearDisplay();
-
+//Ara tornem a llegir dades de l'accelerometre (en aquest cas del eix X)
   int32_t x = readAccel(0x29,1);
   SLEEP_MS(10);
   media_x=0;
+//Introduim aquest nou valor llegit en el vector de mitjanes
   for(i=0; i<= n-2; i++){
   vector_media_x[i]=vector_media_x[i+1];
   media_x=media_x+vector_media_x[i];
   }
   vector_media_x[n-1]=x;
   media_x=(media_x+x) /n;
+	  //Busquem la posició en la qual hauriem de col#locar-lo
   int k=0;
   while (((k+1)<= pos) && media_x>dist_x[k+1] ){
   k++;
   }
-  LCD_Config(1,0,0);
-  LCD_GotoXY(k+1,0);
+ //Posem el asterisc a la posició que pertoca
+  LCD_Config(1,0,0); //Desconnectem el cursor
+  LCD_GotoXY(k,0);
   SLEEP_MS(10);
-  LCD_SendChar('*');
+  LCD_SendChar('*'); 
+ //Fem el mateix procediment però aquest cop per la Y
   int32_t y = readAccel(0x2B,1);
   SLEEP_MS(10);
   media_y=0;
